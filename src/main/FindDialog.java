@@ -24,8 +24,9 @@ public class FindDialog extends javax.swing.JDialog {
      * @param modal
      */
     static JTextArea textArea;
-    static String textFieldContent;
+
     static int indexOfString = 0;
+    static int textValueLength = 0;
 
     public FindDialog(java.awt.Frame parent, boolean modal, JTextArea textArea) {
 
@@ -93,6 +94,7 @@ public class FindDialog extends javax.swing.JDialog {
 
         buttonGroup1.add(upRadioButton);
         upRadioButton.setText("Up");
+        upRadioButton.setSelected(true);
         upRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 upRadioButtonActionPerformed(evt);
@@ -101,6 +103,11 @@ public class FindDialog extends javax.swing.JDialog {
 
         buttonGroup1.add(downRadioButton);
         downRadioButton.setText("Down");
+        downRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downRadioButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -202,28 +209,40 @@ public class FindDialog extends javax.swing.JDialog {
     private void findNextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findNextButtonActionPerformed
         String textFieldValue = findTextField.getText();
         String textAreaString = textArea.getText();
+
+        try{
         if (upRadioButton.isSelected()) {
 
-            indexOfString = textAreaString.indexOf(textFieldValue, indexOfString + textFieldValue.length());
+
             if (indexOfString != -1) {
+                indexOfString = textAreaString.indexOf(textFieldValue, indexOfString + textValueLength);
                 textArea.requestFocusInWindow();
                 textArea.setCaretPosition(indexOfString);
                 textArea.select(indexOfString, indexOfString + textFieldValue.length());
+                textValueLength=textFieldValue.length();
 
             }
         } else if (downRadioButton.isSelected()) {
-            indexOfString = textAreaString.lastIndexOf(textFieldValue, indexOfString);
+
+            indexOfString = textAreaString.lastIndexOf(textFieldValue);
             if (indexOfString != -1) {
                 textArea.requestFocusInWindow();
-                textArea.setCaretPosition(indexOfString+textFieldValue.length());
-                textArea.select( indexOfString + textFieldValue.length(),indexOfString);
+                textArea.setCaretPosition(indexOfString);
+                textArea.select( indexOfString ,indexOfString+textFieldValue.length());
 
             }
 
         }
+        } catch(IllegalArgumentException e){
+            indexOfString =0;
+        }
 
 
     }//GEN-LAST:event_findNextButtonActionPerformed
+
+    private void downRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_downRadioButtonActionPerformed
 
     public void cancelJDialogButton(java.awt.event.ActionEvent evt) {
         cancelButtonActionPerformed(evt);

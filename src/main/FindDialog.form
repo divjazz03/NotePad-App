@@ -201,6 +201,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="upRadioButtonActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="upRadioButton.setSelected(true);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JRadioButton" name="downRadioButton">
               <Properties>
@@ -209,6 +212,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Down"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="downRadioButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
