@@ -7,6 +7,7 @@ package main;
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,10 +15,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -41,7 +44,6 @@ public class NotePad extends javax.swing.JFrame {
     private FindDialog findDialog;
     private Font defaultFontSize;
 
-
     /**
      * Creates new form NotePad
      */
@@ -56,6 +58,12 @@ public class NotePad extends javax.swing.JFrame {
                 undo.addEdit(e.getEdit());
             }
         });
+        URL imageUrl = NotePad.class.getResource("icon/notepad.png");
+        if (imageUrl != null) {
+            ImageIcon imageIcon = new ImageIcon(imageUrl);
+            Image icon = imageIcon.getImage();
+            this.setIconImage(icon);
+        }
 
     }
 
@@ -491,7 +499,7 @@ public class NotePad extends javax.swing.JFrame {
     }//GEN-LAST:event_font_menuActionPerformed
 
     private void zoomIn_subMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomIn_subMenuActionPerformed
-        textArea.setFont(new Font(textArea.getFont().getFontName(),textArea.getFont().getSize(),textArea.getFont().getSize()+1));
+        textArea.setFont(new Font(textArea.getFont().getFontName(), textArea.getFont().getSize(), textArea.getFont().getSize() + 1));
     }//GEN-LAST:event_zoomIn_subMenuActionPerformed
 
     private void saveAs_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAs_MenuActionPerformed
@@ -577,7 +585,7 @@ public class NotePad extends javax.swing.JFrame {
     }//GEN-LAST:event_setTextColour_menuActionPerformed
 
     private void zoomOut_subMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOut_subMenuActionPerformed
-        textArea.setFont(new Font(textArea.getFont().getFontName(),textArea.getFont().getSize(),textArea.getFont().getSize()-1));
+        textArea.setFont(new Font(textArea.getFont().getFontName(), textArea.getFont().getSize(), textArea.getFont().getSize() - 1));
     }//GEN-LAST:event_zoomOut_subMenuActionPerformed
 
     private void restoreDefaultZoom_subMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreDefaultZoom_subMenuActionPerformed
