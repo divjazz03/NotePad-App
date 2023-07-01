@@ -64,6 +64,7 @@ public class FindDialog extends javax.swing.JDialog {
         jLabel1.setText("Find what:");
 
         findTextField.setText("jTextField1");
+        findTextField.setText("");
 
         findNextButton.setText("Find Next");
         findNextButton.addActionListener(new java.awt.event.ActionListener() {
@@ -137,19 +138,19 @@ public class FindDialog extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(findTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(findNextButton))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(findTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(matchCaseRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(96, 96, 96)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cancelButton)))))
+                                .addGap(88, 88, 88)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(findNextButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -165,17 +166,18 @@ public class FindDialog extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(cancelButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 5, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(matchCaseRadioButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(matchAroundRadioButton)
-                .addGap(7, 7, 7))
+                                .addComponent(cancelButton)
+                                .addGap(0, 21, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(matchCaseRadioButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(matchAroundRadioButton)
+                        .addGap(7, 7, 7))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,31 +212,30 @@ public class FindDialog extends javax.swing.JDialog {
         String textFieldValue = findTextField.getText();
         String textAreaString = textArea.getText();
 
-        try{
-        if (upRadioButton.isSelected()) {
+        try {
+            if (upRadioButton.isSelected()) {
 
+                indexOfString = textAreaString.lastIndexOf(textFieldValue);
+                if (indexOfString != -1) {
+                    textArea.requestFocusInWindow();
+                    textArea.setCaretPosition(indexOfString);
+                    textArea.select(indexOfString, indexOfString + textFieldValue.length());
+                } else if (downRadioButton.isSelected()) {
 
-            if (indexOfString != -1) {
-                indexOfString = textAreaString.indexOf(textFieldValue, indexOfString + textValueLength);
-                textArea.requestFocusInWindow();
-                textArea.setCaretPosition(indexOfString);
-                textArea.select(indexOfString, indexOfString + textFieldValue.length());
-                textValueLength=textFieldValue.length();
+                    if (indexOfString != -1) {
+                        indexOfString = textAreaString.indexOf(textFieldValue, indexOfString + textValueLength);
+                        textArea.requestFocusInWindow();
+                        textArea.setCaretPosition(indexOfString);
+                        textArea.select(indexOfString, indexOfString + textFieldValue.length());
+                        textValueLength = textFieldValue.length();
+
+                    }
+
+                }
 
             }
-        } else if (downRadioButton.isSelected()) {
-
-            indexOfString = textAreaString.lastIndexOf(textFieldValue);
-            if (indexOfString != -1) {
-                textArea.requestFocusInWindow();
-                textArea.setCaretPosition(indexOfString);
-                textArea.select( indexOfString ,indexOfString+textFieldValue.length());
-
-            }
-
-        }
-        } catch(IllegalArgumentException e){
-            indexOfString =0;
+        } catch (IllegalArgumentException e) {
+            indexOfString = 0;
         }
 
 
