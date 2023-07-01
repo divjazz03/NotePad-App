@@ -50,8 +50,8 @@ public class FindDialog extends javax.swing.JDialog {
         findTextField = new javax.swing.JTextField();
         findNextButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        matchCaseRadioButton = new javax.swing.JCheckBox();
-        matchAroundRadioButton = new javax.swing.JCheckBox();
+        matchCase = new javax.swing.JCheckBox();
+        wrapAround = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         upRadioButton = new javax.swing.JRadioButton();
         downRadioButton = new javax.swing.JRadioButton();
@@ -80,14 +80,19 @@ public class FindDialog extends javax.swing.JDialog {
             }
         });
 
-        matchCaseRadioButton.setText("Match Case");
-        matchCaseRadioButton.addActionListener(new java.awt.event.ActionListener() {
+        matchCase.setText("Match Case");
+        matchCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                matchCaseRadioButtonActionPerformed(evt);
+                matchCaseActionPerformed(evt);
             }
         });
 
-        matchAroundRadioButton.setText("Wrap around");
+        wrapAround.setText("Wrap around");
+        wrapAround.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wrapAroundActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Direction", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP));
         jPanel2.setToolTipText("Direction");
@@ -134,7 +139,7 @@ public class FindDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(matchAroundRadioButton)
+                        .addComponent(wrapAround)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -144,7 +149,7 @@ public class FindDialog extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(findTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(matchCaseRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(matchCase, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(88, 88, 88)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
@@ -170,9 +175,9 @@ public class FindDialog extends javax.swing.JDialog {
                                 .addGap(0, 21, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(matchCaseRadioButton)))
+                                .addComponent(matchCase)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(matchAroundRadioButton)
+                        .addComponent(wrapAround)
                         .addGap(7, 7, 7))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -196,9 +201,9 @@ public class FindDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void matchCaseRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchCaseRadioButtonActionPerformed
-        // TODO add your handling code here
-    }//GEN-LAST:event_matchCaseRadioButtonActionPerformed
+    private void matchCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchCaseActionPerformed
+
+    }//GEN-LAST:event_matchCaseActionPerformed
 
     private void upRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upRadioButtonActionPerformed
         // TODO add your handling code here:
@@ -215,27 +220,27 @@ public class FindDialog extends javax.swing.JDialog {
         try {
             if (upRadioButton.isSelected()) {
 
-                indexOfString = textAreaString.lastIndexOf(textFieldValue);
                 if (indexOfString != -1) {
+                    indexOfString = textAreaString.lastIndexOf(textFieldValue);
                     textArea.requestFocusInWindow();
                     textArea.setCaretPosition(indexOfString);
                     textArea.select(indexOfString, indexOfString + textFieldValue.length());
-                } else if (downRadioButton.isSelected()) {
+                }
+            } else if (downRadioButton.isSelected()) {
 
-                    if (indexOfString != -1) {
-                        indexOfString = textAreaString.indexOf(textFieldValue, indexOfString + textValueLength);
-                        textArea.requestFocusInWindow();
-                        textArea.setCaretPosition(indexOfString);
-                        textArea.select(indexOfString, indexOfString + textFieldValue.length());
-                        textValueLength = textFieldValue.length();
-
-                    }
+                if (indexOfString != -1) {
+                    indexOfString = textAreaString.indexOf(textFieldValue, indexOfString + textValueLength);
+                    textArea.requestFocusInWindow();
+                    textArea.setCaretPosition(indexOfString);
+                    textArea.select(indexOfString, indexOfString + textFieldValue.length());
+                    textValueLength = textFieldValue.length();
 
                 }
 
             }
+
         } catch (IllegalArgumentException e) {
-            indexOfString = 0;
+
         }
 
 
@@ -244,6 +249,10 @@ public class FindDialog extends javax.swing.JDialog {
     private void downRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downRadioButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_downRadioButtonActionPerformed
+
+    private void wrapAroundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wrapAroundActionPerformed
+        
+    }//GEN-LAST:event_wrapAroundActionPerformed
 
     public void cancelJDialogButton(java.awt.event.ActionEvent evt) {
         cancelButtonActionPerformed(evt);
@@ -258,22 +267,7 @@ public class FindDialog extends javax.swing.JDialog {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FindDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FindDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FindDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FindDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+
         //</editor-fold>
 
         /* Create and display the dialog */
@@ -300,8 +294,8 @@ public class FindDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JCheckBox matchAroundRadioButton;
-    private javax.swing.JCheckBox matchCaseRadioButton;
+    private javax.swing.JCheckBox matchCase;
     private javax.swing.JRadioButton upRadioButton;
+    private javax.swing.JCheckBox wrapAround;
     // End of variables declaration//GEN-END:variables
 }

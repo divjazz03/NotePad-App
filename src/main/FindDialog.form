@@ -54,7 +54,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="matchAroundRadioButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="wrapAround" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -66,7 +66,7 @@
                                   <Component id="findTextField" min="-2" pref="190" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="matchCaseRadioButton" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="matchCase" min="-2" pref="85" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -101,11 +101,11 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="matchCaseRadioButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="matchCase" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="matchAroundRadioButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="wrapAround" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -148,18 +148,21 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="matchCaseRadioButton">
+        <Component class="javax.swing.JCheckBox" name="matchCase">
           <Properties>
             <Property name="text" type="java.lang.String" value="Match Case"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="matchCaseRadioButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="matchCaseActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="matchAroundRadioButton">
+        <Component class="javax.swing.JCheckBox" name="wrapAround">
           <Properties>
             <Property name="text" type="java.lang.String" value="Wrap around"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="wrapAroundActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>

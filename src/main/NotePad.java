@@ -5,6 +5,8 @@
 package main;
 
 import com.formdev.flatlaf.intellijthemes.FlatArcDarkIJTheme;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.print.PrinterException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,14 +15,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import javax.swing.JDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.Document;
 import javax.swing.undo.UndoManager;
-import main.TextFilter;
+import org.drjekyll.fontchooser.FontDialog;
 
 /**
  *
@@ -33,6 +39,8 @@ public class NotePad extends javax.swing.JFrame {
     private String textBuffer = "";
     protected UndoManager undo;
     private FindDialog findDialog;
+    private Font defaultFontSize;
+
 
     /**
      * Creates new form NotePad
@@ -40,6 +48,7 @@ public class NotePad extends javax.swing.JFrame {
     public NotePad() {
         initComponents();
         undo = new UndoManager();
+        defaultFontSize = new Font(textArea.getFont().getFontName(), textArea.getFont().getStyle(), 14);
         Document doc = textArea.getDocument();
         doc.addUndoableEditListener(new UndoableEditListener() {
             @Override
@@ -102,8 +111,10 @@ public class NotePad extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("untitled");
+        setFont(new java.awt.Font("Consolas", 2, 14)); // NOI18N
 
         textArea.setColumns(20);
+        textArea.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
         textArea.setRows(5);
         textArea.setToolTipText("");
         textArea.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -238,6 +249,11 @@ public class NotePad extends javax.swing.JFrame {
 
         replace_menu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         replace_menu.setText("Replace");
+        replace_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                replace_menuActionPerformed(evt);
+            }
+        });
         edit.add(replace_menu);
 
         goto_menu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -247,6 +263,11 @@ public class NotePad extends javax.swing.JFrame {
 
         selectAll_menu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         selectAll_menu.setText("Select All");
+        selectAll_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectAll_menuActionPerformed(evt);
+            }
+        });
         edit.add(selectAll_menu);
 
         timeDate_menu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
@@ -264,6 +285,11 @@ public class NotePad extends javax.swing.JFrame {
 
         wordWrap_menu.setSelected(true);
         wordWrap_menu.setText("Word Wrap");
+        wordWrap_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wordWrap_menuActionPerformed(evt);
+            }
+        });
         format.add(wordWrap_menu);
 
         font_menu.setText("Font");
@@ -297,9 +323,19 @@ public class NotePad extends javax.swing.JFrame {
         jMenu1.add(zoomIn_subMenu);
 
         zoomOut_subMenu.setText("Zoom Out");
+        zoomOut_subMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomOut_subMenuActionPerformed(evt);
+            }
+        });
         jMenu1.add(zoomOut_subMenu);
 
         restoreDefaultZoom_subMenu.setText("Restore Default Zoom");
+        restoreDefaultZoom_subMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restoreDefaultZoom_subMenuActionPerformed(evt);
+            }
+        });
         jMenu1.add(restoreDefaultZoom_subMenu);
 
         jMenu4.add(jMenu1);
@@ -323,14 +359,11 @@ public class NotePad extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1481, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1493, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -412,7 +445,7 @@ public class NotePad extends javax.swing.JFrame {
     }//GEN-LAST:event_delete_menuActionPerformed
 
     private void find_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_find_menuActionPerformed
-        findDialog = new FindDialog(this, true,textArea);
+        findDialog = new FindDialog(this, true, textArea);
         findDialog.setVisible(true);
     }//GEN-LAST:event_find_menuActionPerformed
 
@@ -421,12 +454,15 @@ public class NotePad extends javax.swing.JFrame {
             findDialog = new FindDialog(this, true, textArea);
             findDialog.setVisible(true);
         }
-        
+
 
     }//GEN-LAST:event_find_next_menuActionPerformed
 
     private void timeDate_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeDate_menuActionPerformed
-        // TODO add your handling code here:
+        Date current = new Date();
+        String date = null;
+        date = SimpleDateFormat.getInstance().format(current);
+        textArea.append(date);
     }//GEN-LAST:event_timeDate_menuActionPerformed
 
     private void print_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print_menuActionPerformed
@@ -447,16 +483,16 @@ public class NotePad extends javax.swing.JFrame {
     }//GEN-LAST:event_print_menuActionPerformed
 
     private void font_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_font_menuActionPerformed
-        // TODO add your handling code here:
+        FontDialog dialog = new FontDialog(this, "fontDialog", true);
+        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        dialog.setVisible(true);
+        textArea.setFont(dialog.getSelectedFont());
+
     }//GEN-LAST:event_font_menuActionPerformed
 
     private void zoomIn_subMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomIn_subMenuActionPerformed
-        // TODO add your handling code here:
+        textArea.setFont(new Font(textArea.getFont().getFontName(),textArea.getFont().getSize(),textArea.getFont().getSize()+1));
     }//GEN-LAST:event_zoomIn_subMenuActionPerformed
-
-    private void setTextColour_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setTextColour_menuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_setTextColour_menuActionPerformed
 
     private void saveAs_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAs_MenuActionPerformed
         JFileChooser saveFile = new JFileChooser();
@@ -517,6 +553,36 @@ public class NotePad extends javax.swing.JFrame {
     private void paste_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paste_menuActionPerformed
         textArea.paste();
     }//GEN-LAST:event_paste_menuActionPerformed
+
+    private void replace_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_replace_menuActionPerformed
+        ReplaceDialog dialog = new ReplaceDialog(this, true, textArea);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_replace_menuActionPerformed
+
+    private void selectAll_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAll_menuActionPerformed
+        textArea.selectAll();
+    }//GEN-LAST:event_selectAll_menuActionPerformed
+
+    private void wordWrap_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wordWrap_menuActionPerformed
+        if (wordWrap_menu.isSelected()) {
+            textArea.setWrapStyleWord(true);
+            textArea.setLineWrap(true);
+
+        }
+    }//GEN-LAST:event_wordWrap_menuActionPerformed
+
+    private void setTextColour_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setTextColour_menuActionPerformed
+        Color colour = JColorChooser.showDialog(this, "choose text colour", Color.WHITE);
+        textArea.setForeground(colour);
+    }//GEN-LAST:event_setTextColour_menuActionPerformed
+
+    private void zoomOut_subMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOut_subMenuActionPerformed
+        textArea.setFont(new Font(textArea.getFont().getFontName(),textArea.getFont().getSize(),textArea.getFont().getSize()-1));
+    }//GEN-LAST:event_zoomOut_subMenuActionPerformed
+
+    private void restoreDefaultZoom_subMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreDefaultZoom_subMenuActionPerformed
+        textArea.setFont(defaultFontSize);
+    }//GEN-LAST:event_restoreDefaultZoom_subMenuActionPerformed
 
     /**
      * @param args the command line arguments
